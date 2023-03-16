@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junyss.discordbottest.api.crew.mapper.CrewManagementMapper">
+
+    <!-- 크루 목록 조회 및 검색 -->
+    <select id="findByCrewList" resultType="com.junyss.discordbottest.api.crew.model.vo.CrewVO">
+        select *
+        from crew
+
+        <if test='crewSearchDTO.searchType != null and crewSearchDTO.searchType != "" '>
+            <choose>
+                <when test="crewSearchDTO.searchType == 'idx'">
+                    where idx like CONCAT('%', #{crewSearchDTO.searchWord}, '%')
+                </when>
+                <when test="crewSearchDTO.searchType == 'id'">
+                    where id like CONCAT('%', #{crewSearchDTO.searchWord}, '%')
+                </when>
+                <when test="crewSearchDTO.searchType == 'name'">
+                    where name like CONCAT('%', #{crewSearchDTO.searchWord}, '%')
+                </when>
+                <when test="crewSearchDTO.searchType == 'email'">
+                    where email like CONCAT('%', #{crewSearchDTO.searchWord}, '%')
+                </when>
+            </choose>
+
+            <choose>
+                <when test="crewSearchDTO.startDate != null or crewSearchDTO.endDate != null">
+                    and join_date BETWEEN PARSEDATETIME(#{crewSearchDTO.startDate}, 'yyyy.MM.dd') AND PARSEDATETIME(#{crewSearchDTO.endDate}, 'yyyy.MM.dd')
+                </when>
+            </choose>
+        </if>
+
+        <if test='crewSearchDTO.searchType == null or crewSearchDTO.searchType == "" '>
+            <choose>
+                <when test="crewSearchDTO.startDate != null or crewSearchDTO.endDate != null">
+                    where join_date BETWEEN PARSEDATETIME(#{crewSearchDTO.startDate}, 'yyyy.MM.dd') AND PARSEDATETIME(#{crewSearchDTO.endDate}, 'yyyy.MM.dd')
+                </when>
+            </choose>
+        </if>
+    </select>
+</mapper>
