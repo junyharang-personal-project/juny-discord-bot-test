@@ -16,7 +16,7 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping(APIUriInfo.CREW_PRIFIX_URI)
+@RequestMapping(APIUriInfo.CREW_PREFIX_URI)
 @RestController
 public class CrewController {
 

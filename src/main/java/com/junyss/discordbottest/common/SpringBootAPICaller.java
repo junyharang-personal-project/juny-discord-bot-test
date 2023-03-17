@@ -1,5 +1,7 @@
-package com.junyss.discordbottest.api.common;
+package com.junyss.discordbottest.common;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,10 +12,20 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * <b>API 호출을 위한 객체</b>
+ */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringBootAPICaller {
 
-    private SpringBootAPICaller() {}
+    /**
+     * <b>API 호출 담당 Method</b>
+     * @param httpMethodType HTTP Method 종류 (예: GET, POST 등)
+     * @param url API 호출을 위한 URL
+     * @return API 호출을 통해 얻은 Data Base에서 조회된 값
+     * @throws IOException API 호출 시 입력, 출력 관련 문제 발생 관련 Exception
+     */
 
     public static String callApi(String httpMethodType, URL url) throws IOException {
         StringBuilder resultMessage = new StringBuilder();

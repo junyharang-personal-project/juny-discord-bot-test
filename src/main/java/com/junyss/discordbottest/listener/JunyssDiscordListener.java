@@ -10,13 +10,19 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * <b>디스 코드를 이용해서 메시지를 보낼 때 해당 메시지를 받고, 응답을 처리하는 Class</b>
+ */
 @Slf4j
 public class JunyssDiscordListener extends ListenerAdapter {
 
+    /**
+     * <b>디스코드 사용자 메시지를 받게 되면 처리하게 되는 Method</b>
+     * @param event Message를 통해 Event를 처리할 수 있는 JDA 객체
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         User user = event.getAuthor();
@@ -30,20 +36,22 @@ public class JunyssDiscordListener extends ListenerAdapter {
             log.info("디스코드 Message 문자열 값 공백");
         }
 
-        try {
-            List<String> resultList = CheckDiscordCommand.checkCommand(event, message.getContentDisplay().split(" "));
+        List<String> resultList = CheckDiscordCommand.checkCommand(event, message.getContentDisplay().split(" "));
 
-            if (resultList.isEmpty()) {
-                log.info("처리 결과 값 공백");
-            }
-
-            createSendMessage(event, resultList.get(0), Objects.requireNonNull(resultList.get(1)));
-
-        } catch (IOException exception) {
-            log.error("디스코드 봇이 응답하는 중 문제가 발생하였습니다. \n 문제 내용 : " + exception);
+        if (resultList.isEmpty()) {
+            log.info("처리 결과 값 공백");
         }
+
+        createSendMessage(event, resultList.get(0), Objects.requireNonNull(resultList.get(1)));
+
     }
 
+    /**
+     * <b>디스코드 응답 메시지를 만들기 위한 Method</b>
+     * @param event Message를 통해 Event를 처리할 수 있는 JDA 객체
+     * @param returnMessage 디스코드 일반 형태의 응답 Message 내용
+     * @param returnEmbedMessage 디스코드 Embed 형태의 응답 Message 내용
+     */
     private void createSendMessage (MessageReceivedEvent event, String returnMessage, String returnEmbedMessage) {
         int discordAllowMessageSize = 1950;
         int resultMessageSize = returnEmbedMessage.length();
@@ -68,6 +76,13 @@ public class JunyssDiscordListener extends ListenerAdapter {
         }
         embed.clear();
     }
+
+    /**
+     * <b>실제 디스코드로 응답 Message 보내는 Method</b>
+     * @param event Message를 통해 Event를 처리할 수 있는 JDA 객체
+     * @param returnMessage 디스코드 일반 형태의 응답 Message 내용
+     * @param embed 디스코드 Embed 형태의 응답 Message 내용
+     */
 
     private void sendMessage(MessageReceivedEvent event, String returnMessage, EmbedBuilder embed) {
         TextChannel textChannel = event.getChannel().asTextChannel();
