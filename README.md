@@ -27,7 +27,3 @@ Discord Bot을 이용하여 API 호출을 통해 Data Base 저장 값에 접근�
 <br><br>
 **●[\[Spring Boot\] Discord Bot(디스코드 봇) 만들기 - 디스코드 봇을 이용하여 API 호출](https://giggal-people.tistory.com/entry/Spring-Boot-Discord-Bot%EB%94%94%EC%8A%A4%EC%BD%94%EB%93%9C-%EB%B4%87-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EB%94%94%EC%8A%A4%EC%BD%94%EB%93%9C-%EB%B4%87%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-API-%ED%98%B8%EC%B6%9C)**
 <br><br><br>
-
-### 기깔나는 사람들 크루 모집 공고
-
-**●[기깔나는 사람들 모집 공고 노션](https://productive-ornament-cad.notion.site/ff54d02eadd346b488c5e761414bf87f)**
